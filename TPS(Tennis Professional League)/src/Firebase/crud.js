@@ -73,5 +73,21 @@ async function deleteTourney(id) {
   }
 }
 
+/// USUARIO
 
-export {createTourney,readTourney,readTourneyById,updateTourney,deleteTourney};
+async function addUserToTourney(tourneyId, userId){
+  try{
+    const tourneyRef = doc(db, "tourney", tourneyId);
+    const tourneySnap = await getDoc(tourneyRef);
+    const tourneyData = tourneySnap.data();
+    const participants = tourneyData.participants || [];
+    participants.push(userId);
+    await updateDoc(tourneyRef, { participants });
+    console.log("User added to the tourney");  
+  }catch (e) {
+    console.error("Error adding user to tourney: ", e)
+  }
+}
+
+
+export {createTourney,readTourney,readTourneyById,updateTourney,deleteTourney,addUserToTourney};

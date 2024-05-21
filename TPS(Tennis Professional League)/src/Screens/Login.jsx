@@ -74,7 +74,7 @@ function Login() {
           <option value="user">Usuario</option>
 
         </select>
-        <input type="password"/> 
+        
       </label>
 
       <input type="submit" value={isRegistrando ? "Registrar" : "Iniciar sesión"}/>

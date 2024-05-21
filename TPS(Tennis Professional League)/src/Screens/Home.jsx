@@ -16,8 +16,7 @@ function Home({user}) {
     <div> Home 
       <button onClick={() => signOut(auth)}> Cerrar sesión </button>
     
-      {user.rol==="admin" ? <AdminView/> : <UserView/>}
-
+      {user.rol==="admin" ? <AdminView/> : <UserView user={user}/>}
     </div>
   )
 }
