@@ -12,10 +12,11 @@ import {
 } from "firebase/firestore";
 import { db } from "./credenciales";
 
-async function createTourney(name, registrationDeadline, limitNumberParticipants) { //Falta implementar y pensar lo de la imagen :c
+async function createTourney(filename, name, registrationDeadline, limitNumberParticipants) { //Falta implementar y pensar lo de la imagen :c
     try {
       const docRef = await addDoc(collection(db, "tourney"), {
         name: name,
+        image: filename,
         registrationDeadline: registrationDeadline,
         limitNumberParticipants: limitNumberParticipants,
       });
@@ -27,15 +28,18 @@ async function createTourney(name, registrationDeadline, limitNumberParticipants
   }
 
 async function readTourney() {
-    try {
-      const querySnapshot = await getDocs(collection(db, "tourney"));
-      const response = querySnapshot.docs.map((doc) => doc.data());
-      return response;
-    } catch (e) {
-      console.error("Error reading the tourneys: ", e);
-      return [];
-    }
+  try {
+    const querySnapshot = await getDocs(collection(db, "tourney"));
+    const response = querySnapshot.docs.map((doc) => ({
+      id: doc.id, 
+      ...doc.data()
+    }));
+    return response;
+  } catch (e) {
+    console.error("Error reading the tourneys: ", e);
+    return [];
   }
+}
 
 //Está generando problema por el getDocument
   async function readTourneyById(id) {
