@@ -1,72 +1,35 @@
-/* Asegúrate de importar este archivo en tu componente UserView */
-
-body {
-  background: url('../assets/back.jpg') no-repeat center center fixed;
-  background-size: cover;
-  font-family: 'Arial', sans-serif;
-  margin: 0;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: #f0f0f0;
-}
-
+/* UserView.css */
 .tourneys-container {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: rgba(0, 0, 0, 0.75);
-  border-radius: 10px;
-}
-
-.tourneys-box {
-  display: flex;
-  flex-direction: column;
-  padding: 2rem;
-  border-radius: 10px;
-  max-width: 1000px;
-  width: 90%;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-  background: rgba(0, 0, 0, 0.681);
-}
-
-.tourneys-box h1 {
-  margin-bottom: 1rem;
-  font-size: 1.5rem;
-  font-weight: bold;
-}
-
-.tourney-item {
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 5px;
-  padding: 1rem;
-  margin-bottom: 1rem;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
-}
-
-.tourney-item h2 {
-  margin: 0;
-  font-size: 1.2rem;
-}
-
-.tourney-item p {
-  margin: 0.5rem 0;
-}
-
-.tourney-item button {
-  background: transparent;
-  color: white;
-  border: 2px solid #4caf50;
-  cursor: pointer;
-  transition: background 0.3s ease;
-  padding: 0.5rem 1rem;
-  border-radius: 5px;
-  margin-top: 0.5rem;
-}
-
-.tourney-item button:hover {
-  background: rgba(76, 175, 80, 0.1);
-}
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.75);
+    border-radius: 10px;
+  }
+  
+  .tourneys-box {
+    display: flex;
+    flex-direction: column;
+    padding: 2rem;
+    border-radius: 10px;
+    max-width: 1000px;
+    width: 90%;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    background: rgba(0, 0, 0, 0.681);
+  }
+  
+  .tourneys-list {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .tourney-item {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 5px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+  }
+  

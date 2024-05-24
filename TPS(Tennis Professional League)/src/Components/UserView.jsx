@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { readTourney, addUserToTourney } from '../Firebase/crud';
+import UserTourneyView from './UserTourneyList'; 
 import './UserView.css';
 
-function UserView({user}) {
+function UserView({ user }) {
   const [tourneys, setTourneys] = useState([]);
 
   useEffect(() => {
@@ -29,13 +30,17 @@ function UserView({user}) {
     <div className="tourneys-container">
       <div className="tourneys-box">
         <h1>Available Tourneys</h1>
-        <ul>
+        <ul className="tourneys-list">
           {tourneys.map((tourney, index) => (
             <li key={index} className="tourney-item">
-              <h2>{tourney.name}</h2>
-              <p>Registration Deadline: {tourney.registrationDeadline}</p>
-              <p>Limit Number of Participants: {tourney.limitNumberParticipants}</p>
-              <button onClick={() => handleRegister(tourney.uid)}>Register</button>
+              <UserTourneyView
+                id={tourney.id} // Asegúrate de pasar el id aquí
+                name={tourney.name}
+                date={tourney.registrationDeadline}
+                participants={tourney.limitNumberParticipants}
+                imageName={tourney.image} 
+                onRegister={handleRegister}
+              />
             </li>
           ))}
         </ul>
