@@ -13,7 +13,8 @@ function Login() {
   const [isRegistrando, setIsRegistrando] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  async function registrarUsuario(email, password, rol) {
+  async function registrarUsuario(email, password, rol, name, age) {
+    console.log("Submit", email, password, name, age, rol);
     const infoUsuario = await createUserWithEmailAndPassword(auth, email, password).then((usuarioFirebase) => {
       return usuarioFirebase;
     });
@@ -21,7 +22,7 @@ function Login() {
     console.log(infoUsuario.user.uid);
 
     const docRef = doc(firestore, `usuarios/${infoUsuario.user.uid}`);
-    setDoc(docRef, { correo: email, rol: rol });
+    setDoc(docRef, { correo: email, rol: rol, nombre: name, edad : age });
 
     setIsLoggedIn(true);
   }
@@ -31,12 +32,15 @@ function Login() {
 
     const email = e.target.elements.email.value;
     const password = e.target.elements.password.value;
+    const name = isRegistrando ? e.target.elements.name.value : null;
+    const age = isRegistrando ? e.target.elements.age.value : null;
     const rol = isRegistrando ? e.target.elements.rol.value : null;
+   
 
-    console.log("Submit", email, password, rol);
+    
 
     if (isRegistrando) {
-      registrarUsuario(email, password, rol);
+      registrarUsuario(email, password, rol, name, age);
     } else {
       signInWithEmailAndPassword(auth, email, password).then(() => setIsLoggedIn(true));
     }
@@ -61,14 +65,30 @@ function Login() {
               <input type="password" id="password" placeholder="Introduce tu contraseña" required />
             </div>
             {isRegistrando && (
+              <div className="input-group">
+               <i className="fas fa-user input-icon"></i>
+               <input type="text" id="name" placeholder="Introduce tu nombre" required />
+             </div>
+            )}
+
+            {isRegistrando && (
+              <div className="input-group">
+               <i className="fas fa-user input-icon"></i>
+               <input type="text" id="age" placeholder="Introduce tu edad" required />
+             </div>
+            )}
+            {isRegistrando && (
               <label className="rol-label">
                 Rol:
                 <select id="rol">
                   <option value="admin">Administrador</option>
                   <option value="user">Usuario</option>
                 </select>
-              </label>
+              </label>   
             )}
+
+          
+            
             
             <input type="submit" value={isRegistrando ? "Registrar" : "Iniciar sesión"} className="submit-btn" />
           </form>
