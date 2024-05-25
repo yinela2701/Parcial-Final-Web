@@ -104,6 +104,7 @@ function AdminView() {
             name={tourney.name}
             date={tourney.registrationDeadline}
             participants={tourney.limitNumberParticipants}
+            participantsInfo={tourney.participants}
           />
         ))}
       </div>

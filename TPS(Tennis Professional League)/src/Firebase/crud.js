@@ -79,6 +79,18 @@ async function deleteTourney(id) {
 
 /// USUARIO
 
+async function readUseryById(userId) {
+  try {
+    const docRef = doc(db, "usuarios", userId);
+    const docSnap = await getDoc(docRef);
+    return { id: docSnap.id, ...docSnap.data() };
+
+  } catch (e) {
+    console.error("Error reading the tourney: ", e);
+    return null;
+  }
+}
+
 async function addUserToTourney(tourneyId, userId){
   try{
     const tourneyRef = doc(db, "tourney", tourneyId);
@@ -94,4 +106,4 @@ async function addUserToTourney(tourneyId, userId){
 }
 
 
-export {createTourney,readTourney,readTourneyById,updateTourney,deleteTourney,addUserToTourney};
+export {createTourney,readTourney,readTourneyById,updateTourney,deleteTourney,addUserToTourney, readUseryById};
