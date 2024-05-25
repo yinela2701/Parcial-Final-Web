@@ -79,7 +79,7 @@ async function deleteTourney(id) {
 
 /// USUARIO
 
-async function readUseryById(userId) {
+export default async function readUseryById(userId) {
   try {
     const docRef = doc(db, "usuarios", userId);
     const docSnap = await getDoc(docRef);
@@ -107,3 +107,4 @@ async function addUserToTourney(tourneyId, userId){
 
 
 export {createTourney,readTourney,readTourneyById,updateTourney,deleteTourney,addUserToTourney, readUseryById};
+

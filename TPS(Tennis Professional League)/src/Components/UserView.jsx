@@ -34,7 +34,7 @@ function UserView({ user }) {
           {tourneys.map((tourney, index) => (
             <li key={index} className="tourney-item">
               <UserTourneyView
-                id={tourney.id} // Asegúrate de pasar el id aquí
+                id={tourney.id} 
                 name={tourney.name}
                 date={tourney.registrationDeadline}
                 participants={tourney.limitNumberParticipants}
