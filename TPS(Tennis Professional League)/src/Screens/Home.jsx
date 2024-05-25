@@ -1,20 +1,18 @@
 import React from 'react'
 
 import firebaseApp from '../Firebase/credenciales'
-import{getAuth, signOut} from "firebase/auth"
-
+import Header from '../Components/Header'
 import UserView from '../Components/UserView'
 import AdminView from '../Components/AdminView'
 
-const auth = getAuth(firebaseApp)
 
 
 
 
 function Home({user}) {
   return (
-    <div> Home 
-      <button onClick={() => signOut(auth)}> Cerrar sesión </button>
+    <div>
+     <Header user={user}></Header >
     
       {user.rol==="admin" ? <AdminView/> : <UserView user={user}/>}
     </div>
