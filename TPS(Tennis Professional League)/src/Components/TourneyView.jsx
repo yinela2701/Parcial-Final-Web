@@ -49,13 +49,13 @@ function TourneyView({ imageName, id, name, date, participants, participantsInfo
         
         <p>ID: {id}</p>
         <p>Fecha: {date}</p>
-        <p>Número de participantes: {participants}</p>
+        <p>Máximo de participantes: {participants}</p>
         <h3>Participantes:</h3>
         <div className="tourney-participants">
           <ul>
             {participantsDetails.map((participant) => (
               <li key={participant.id}>
-                Correo: {participant.correo}, Rol: {participant.rol}
+                Nombre: {participant.nombre} - Edad: {participant.edad}
               </li>
             ))}
           </ul>

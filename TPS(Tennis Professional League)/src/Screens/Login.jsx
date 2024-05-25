@@ -73,7 +73,7 @@ function Login() {
 
             {isRegistrando && (
               <div className="input-group">
-               <i className="fas fa-user input-icon"></i>
+               <i className="fas fa-calendar-days input-icon"></i>
                <input type="text" id="age" placeholder="Introduce tu edad" required />
              </div>
             )}
