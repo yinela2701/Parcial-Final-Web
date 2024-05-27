@@ -1,12 +1,14 @@
+// src/components/TourneyView.js
 import React, { useEffect, useState } from 'react';
-import { deleteTourney, readUseryById } from '../Firebase/crud';
-import { getImageUrlByName } from '../Firebase/storage';
+import { deleteTourney, readUseryById, updateTourney } from '../Firebase/crud';
+import { getImageUrlByName, uploadImage } from '../Firebase/storage';
+import UpdateTourneyModal from './UpdateTourneyModal'; 
 import './TourneyView.css'; 
 
-function TourneyView({ imageName, id, name, date, participants, participantsInfo }) {
-
+function TourneyView({ imageName, id, name, date, participants, participantsInfo, image, fetchTourneys }) {
   const [imageUrl, setImageUrl] = useState('');
   const [participantsDetails, setParticipantsDetails] = useState([]);
+  const [isModalOpen, setIsModalOpen] = useState(false); 
 
   useEffect(() => {
     const fetchImageUrl = async () => {
@@ -37,16 +39,39 @@ function TourneyView({ imageName, id, name, date, participants, participantsInfo
     fetchParticipantsDetails();
   }, [participantsInfo]);
 
+  const handleUpdate = async (updatedData) => {
+    try {
+      const { id, name, date, participants, imageFile } = updatedData;
+      const success = await updateTourney(id, name, date, participants);
+      fetchTourneys();
+      if (imageFile) {
+        await uploadImage(imageFile, image);
+      }
+      
+    } catch (error) {
+      console.error("Error updating tourney:", error);
+    }
+    setIsModalOpen(false);
+  };
+
+  const handleDelete = async () => {
+    try {
+      const response = await deleteTourney(id);
+      console.log("Tourney deleted response:", response);
+      fetchTourneys(); // Llama a fetchTourneys después de eliminar el torneo
+    } catch (error) {
+      console.error("Error deleting tourney:", error);
+    }
+  };
+
   return (
     <div className="tourney-container">
-
       <div className="tourney-image">
-      <h2>{name}</h2>
+        <h2>{name}</h2>
         {imageUrl && <img src={imageUrl} alt={name} />}
       </div>
 
       <div className="tourney-details">
-        
         <p>ID: {id}</p>
         <p>Fecha: {date}</p>
         <p>Máximo de participantes: {participants}</p>
@@ -61,21 +86,22 @@ function TourneyView({ imageName, id, name, date, participants, participantsInfo
           </ul>
         </div>
         <div className="tourney-buttons">
-          <button className="tourney-button"
-            onClick={async () => {
-              try {
-                const response = await deleteTourney(id);
-                console.log("Tourney deleted response:", response);
-              } catch (error) {
-                console.error("Error deleting tourney:", error);
-              }
-            }}
-          >
+          <button className="tourney-button" onClick={handleDelete}>
             Eliminar
           </button>
-          <button className="tourney-button1" >Actualizar</button>
+          <button className="tourney-button1" onClick={() => setIsModalOpen(true)}>
+            Actualizar
+          </button>
         </div>
       </div>
+
+      {isModalOpen && 
+        <UpdateTourneyModal 
+          onClose={() => setIsModalOpen(false)} 
+          onSubmit={handleUpdate} 
+          tourneyData={{ id, name, date, participants }} 
+        />
+      }
     </div>
   );
 }
