@@ -1,33 +1,36 @@
 /* UserView.css */
 .tourneys-container {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: rgba(0, 0, 0, 0.75);
-  }
-  
-  .tourneys-box {
-    display: flex;
-    flex-direction: column;
-    padding: 2rem;
-    max-width: 1000px;
-    width: 90%;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-    background: rgba(0, 0, 0, 0.681);
-  }
-  
-  .tourneys-list {
-    list-style: none;
-    padding: 0;
-  }
-  
-  .tourney-item {
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 5px;
-    padding: 1rem;
-    margin-bottom: 1rem;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
-  }
-  
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  box-sizing: border-box;
+}
+
+.tourneys-box {
+  background: rgba(0, 0, 0, 0.75);
+  padding: 20px;
+  border-radius: 10px;
+  max-width: 1000px;
+  width: 100%;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+}
+
+.tourneys-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem; /* Espacio entre los elementos */
+  justify-content: center; /* Centra los elementos */
+}
+
+
+
+.tourney-item:hover {
+  transform: scale(1.02);
+
+}

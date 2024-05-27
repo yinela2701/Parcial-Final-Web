@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { getImageUrlByName } from '../Firebase/storage';
-import './UserTourneyList.css'; 
+import './UserTourneyList.css';
+
 function UserTourneyView({ imageName, id, name, date, participants, onRegister }) {
   const [imageUrl, setImageUrl] = useState('');
 
@@ -20,7 +21,6 @@ function UserTourneyView({ imageName, id, name, date, participants, onRegister }
   return (
     <div className="tourney-view">
       <h2>{name}</h2>
-      
       <p>Fecha: {date}</p>
       <p>Número de participantes: {participants}</p>
       {imageUrl && <div className="image-container"><img src={imageUrl} alt={name} /></div>}
