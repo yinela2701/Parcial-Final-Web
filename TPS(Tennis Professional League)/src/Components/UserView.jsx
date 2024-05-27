@@ -29,16 +29,16 @@ function UserView({ user }) {
   return (
     <div className="tourneys-container">
       <div className="tourneys-box">
-        <h1>Available Tourneys</h1>
+        <h1>Torneos Disponibles</h1>
         <ul className="tourneys-list">
           {tourneys.map((tourney, index) => (
             <li key={index} className="tourney-item">
               <UserTourneyView
-                id={tourney.id} 
+                id={tourney.id}
                 name={tourney.name}
                 date={tourney.registrationDeadline}
                 participants={tourney.limitNumberParticipants}
-                imageName={tourney.image} 
+                imageName={tourney.image}
                 onRegister={handleRegister}
               />
             </li>

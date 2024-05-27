@@ -1,22 +1,18 @@
-import React from 'react'
+import React from 'react';
+import Header from '../Components/Header';
+import UserView from '../Components/UserView';
+import AdminView from '../Components/AdminView';
+import './Home.css';
 
-import firebaseApp from '../Firebase/credenciales'
-import Header from '../Components/Header'
-import UserView from '../Components/UserView'
-import AdminView from '../Components/AdminView'
-
-
-
-
-
-function Home({user}) {
+function Home({ user }) {
   return (
-    <div>
-     <Header user={user}></Header >
-    
-      {user.rol==="admin" ? <AdminView/> : <UserView user={user}/>}
+    <div className="home-container">
+      <Header user={user} />
+      <div className="content-container">
+        {user.rol === "admin" ? <AdminView /> : <UserView user={user} />}
+      </div>
     </div>
-  )
+  );
 }
 
-export default Home
+export default Home;
