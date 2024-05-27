@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './UpdateTourneyModal.css';
 
 function UpdateTourneyModal({ onClose, onSubmit, tourneyData }) {
-  const [formData, setFormData] = React.useState(tourneyData);
-  const [imageFile, setImageFile] = React.useState(null);
+  const [formData, setFormData] = useState(tourneyData);
+  const [imageFile, setImageFile] = useState(null);
 
   const handleChange = (e) => {
     const { name, value, files } = e.target;
@@ -41,7 +41,7 @@ function UpdateTourneyModal({ onClose, onSubmit, tourneyData }) {
             <input type="file" name="imagen-input" onChange={handleChange} />
           </label>
           <button type="submit">Guardar</button>
-          <button type="button" onClick={onClose}>Cancelar</button>
+          <button type="button" className="cancel-button" onClick={onClose}>Cancelar</button>
         </form>
       </div>
     </div>
