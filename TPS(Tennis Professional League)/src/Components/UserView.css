@@ -34,3 +34,8 @@
   transform: scale(1.02);
 
 }
+
+.swal-button--green {
+  background-color: #28a745 !important;
+  color: white !important;
+}

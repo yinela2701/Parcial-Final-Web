@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from 'react';
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
 import { readTourney, addUserToTourney } from '../Firebase/crud';
-import UserTourneyView from './UserTourneyList'; 
+import UserTourneyView from './UserTourneyList';
 import './UserView.css';
+
+const MySwal = withReactContent(Swal);
 
 function UserView({ user }) {
   const [tourneys, setTourneys] = useState([]);
@@ -20,9 +24,28 @@ function UserView({ user }) {
     console.log('Tourney Id:', tourneyId);
     try {
       await addUserToTourney(tourneyId, user.uid);
-      alert('You have been registered for the tourney');
+
+      MySwal.fire({
+        title: "Registrado!",
+        text: "Su registro al torneo ha sido exitoso!",
+        icon: "success",
+        confirmButtonText: 'OK',
+        customClass: {
+          confirmButton: 'swal-button--green',
+        }
+      });
+
     } catch (e) {
       console.error('Error registering for the tourney: ', e);
+      MySwal.fire({
+        title: "Error!",
+        text: "There was an error registering for the tournament. Please try again.",
+        icon: "error",
+        confirmButtonText: 'OK',
+        customClass: {
+          confirmButton: 'swal-button--green',
+        }
+      });
     }
   };
 

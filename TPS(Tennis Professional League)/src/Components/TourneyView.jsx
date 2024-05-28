@@ -1,9 +1,12 @@
 // src/components/TourneyView.js
 import React, { useEffect, useState } from 'react';
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
 import { deleteTourney, readUseryById, updateTourney } from '../Firebase/crud';
 import { getImageUrlByName, uploadImage } from '../Firebase/storage';
 import UpdateTourneyModal from './UpdateTourneyModal'; 
 import './TourneyView.css'; 
+const MySwal = withReactContent(Swal);
 
 function TourneyView({ imageName, id, name, date, participants, participantsInfo, image, fetchTourneys }) {
   const [imageUrl, setImageUrl] = useState('');
@@ -43,10 +46,19 @@ function TourneyView({ imageName, id, name, date, participants, participantsInfo
     try {
       const { id, name, date, participants, imageFile } = updatedData;
       const success = await updateTourney(id, name, date, participants);
-      fetchTourneys();
       if (imageFile) {
         await uploadImage(imageFile, image);
       }
+      MySwal.fire({
+        title: "Actualizado!",
+        text: "El torneo fue actulizado con éxito",
+        icon: "success",
+        confirmButtonText: 'OK',
+        customClass: {
+          confirmButton: 'swal-button--green',
+        }
+      });
+      fetchTourneys(); 
       
     } catch (error) {
       console.error("Error updating tourney:", error);
@@ -58,9 +70,29 @@ function TourneyView({ imageName, id, name, date, participants, participantsInfo
     try {
       const response = await deleteTourney(id);
       console.log("Tourney deleted response:", response);
-      fetchTourneys(); // Llama a fetchTourneys después de eliminar el torneo
+
+      MySwal.fire({
+        title: "Eliminado",
+        text: "El torneo fue eliminado con éxito",
+        icon: "success",
+        confirmButtonText: 'OK',
+        customClass: {
+          confirmButton: 'swal-button--green',
+        }
+      });
+
+      fetchTourneys(); 
     } catch (error) {
-      console.error("Error deleting tourney:", error);
+      MySwal.fire({
+        title: "Good job!",
+        text: "You have successfully registered for the tournament!",
+        icon: "success",
+        confirmButtonText: 'OK',
+        customClass: {
+          confirmButton: 'swal-button--green',
+        }
+      });
+      
     }
   };
 

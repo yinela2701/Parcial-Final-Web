@@ -14,17 +14,23 @@ function Login() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   async function registrarUsuario(email, password, rol, name, age) {
-    console.log("Submit", email, password, name, age, rol);
-    const infoUsuario = await createUserWithEmailAndPassword(auth, email, password).then((usuarioFirebase) => {
-      return usuarioFirebase;
-    });
+    try {
+      const infoUsuario = await createUserWithEmailAndPassword(auth, email, password);
+      const docRef = doc(firestore, `usuarios/${infoUsuario.user.uid}`);
+      await setDoc(docRef, { correo: email, rol: rol, nombre: name, edad: age });
+      setIsLoggedIn(true);
+    } catch (error) {
+      alert("Error al registrar: " + error.message);
+    }
+  }
 
-    console.log(infoUsuario.user.uid);
-
-    const docRef = doc(firestore, `usuarios/${infoUsuario.user.uid}`);
-    setDoc(docRef, { correo: email, rol: rol, nombre: name, edad : age });
-
-    setIsLoggedIn(true);
+  async function iniciarSesion(email, password) {
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+      setIsLoggedIn(true);
+    } catch (error) {
+      alert("Error al iniciar sesión: " + error.message);
+    }
   }
 
   function submitHandler(e) {
@@ -35,14 +41,11 @@ function Login() {
     const name = isRegistrando ? e.target.elements.name.value : null;
     const age = isRegistrando ? e.target.elements.age.value : null;
     const rol = isRegistrando ? e.target.elements.rol.value : null;
-   
-
-    
 
     if (isRegistrando) {
       registrarUsuario(email, password, rol, name, age);
     } else {
-      signInWithEmailAndPassword(auth, email, password).then(() => setIsLoggedIn(true));
+      iniciarSesion(email, password);
     }
   }
 
@@ -87,9 +90,6 @@ function Login() {
               </label>   
             )}
 
-          
-            
-            
             <input type="submit" value={isRegistrando ? "Registrar" : "Iniciar sesión"} className="submit-btn" />
           </form>
         
@@ -105,4 +105,3 @@ function Login() {
 }
 
 export default Login;
-

@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from 'react';
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
 import { createTourney, readTourney } from '../Firebase/crud';
 import { uploadImage } from '../Firebase/storage';
 import TourneyView from './TourneyView';
 import './AdminView.css'; // Importa el archivo CSS
+const MySwal = withReactContent(Swal);
 
 function AdminView() {
   const [tourneys, setTourneys] = useState([]);
@@ -38,6 +41,15 @@ function AdminView() {
               await uploadImage(file, file.name);
               await createTourney(file.name, input1, input2, input4);
               console.log('The tourney was created');
+              MySwal.fire({
+                title: "Creado!",
+                text: "El torneo fue creado con éxito",
+                icon: "success",
+                confirmButtonText: 'OK',
+                customClass: {
+                  confirmButton: 'swal-button--green',
+                }
+              });
               fetchTourneys(); // Llama a fetchTourneys después de crear el torneo
             } else {
               console.error('Por favor, completa todos los campos requeridos.');
