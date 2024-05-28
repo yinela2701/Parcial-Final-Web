@@ -5,7 +5,7 @@
   border-radius: 10px;
   padding: 10px 20px 15px 0px;
   background-color: rgba(0, 0, 0, 0.681);
-  max-width: 1500px;
+  max-width: 1800px;
   margin: 20px auto;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
@@ -49,6 +49,7 @@
 .tourney-participants ul {
   padding-left: 20px;
   list-style-type: disc;
+  
 }
 
 .tourney-buttons {

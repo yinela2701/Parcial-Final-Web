@@ -26,9 +26,9 @@ function Header({ user }) {
 
   const getWelcomeMessage = () => {
     if (userRole === 'admin') {
-      return `Bienvenido, Administrador: ${userName}`;
+      return `Bienvenido, Administrador ${userName}`;
     }
-    return `Bienvenido, Usuario: ${userName}`;
+    return `Bienvenido, Usuario ${userName}`;
   };
 
   return (
